@@ -1,4 +1,4 @@
-import 'package:dating/src/domain/const/resource.dart';
+import 'package:dating/src/core/utils/resources/resource.dart';
 
 class ActivitiesModel {
   final int id;
