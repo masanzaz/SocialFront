@@ -1,5 +1,5 @@
-import 'package:dating/src/presentation/components/resources/app_text.dart';
-import 'package:dating/src/presentation/components/widgets/app_widgets.dart';
+import 'package:dating/src/core/utils/resources/app_text.dart';
+import 'package:dating/src/core/widgets/app_widgets.dart';
 import 'package:dating/src/presentation/features/discover/discover_filter_view.dart';
 import 'package:dating/src/presentation/features/discover/model/discover_person_model.dart';
 import 'package:dating/src/presentation/features/matches/model/matches_model.dart';

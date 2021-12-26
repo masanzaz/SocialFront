@@ -1,4 +1,4 @@
-import 'package:dating/src/presentation/components/widgets/app_widgets.dart';
+import 'package:dating/src/core/widgets/app_widgets.dart';
 import 'package:dating/src/presentation/features/intro/model/intro_data_model.dart';
 import 'package:flutter/material.dart';
 import 'package:page_view_indicators/page_view_indicators.dart';

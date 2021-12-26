@@ -1,7 +1,7 @@
-import 'package:dating/src/presentation/components/resources/app_routes.dart';
-import 'package:dating/src/presentation/components/resources/app_text.dart';
-import 'package:dating/src/presentation/components/utils/navigator.dart';
-import 'package:dating/src/presentation/components/widgets/app_widgets.dart';
+import 'package:dating/src/core/utils/resources/app_routes.dart';
+import 'package:dating/src/core/utils/resources/app_text.dart';
+import 'package:dating/src/core/utils/navigator.dart';
+import 'package:dating/src/core/widgets/app_widgets.dart';
 import 'package:dating/src/presentation/features/gender/model/gender_model.dart';
 import 'package:dating/src/presentation/features/gender/widgets/gender_list_widget.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +48,7 @@ class GenderSelectionView extends StatelessWidget {
         margin: EdgeInsets.only(top: 30),
         child: ElevatedButton(
             onPressed: () {
-              AppNavigator.navigateToScreen(context, AppRoutes.interest);
+              AppNavigator.navigateToScreen(context, AppRoutes.disability);
             },
             child: Text(
               AppText.continueText,

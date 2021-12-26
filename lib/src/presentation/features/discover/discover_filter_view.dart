@@ -1,7 +1,7 @@
-import 'package:dating/src/presentation/components/resources/app_color.dart';
-import 'package:dating/src/presentation/components/resources/app_text.dart';
-import 'package:dating/src/presentation/components/theme/app_theme.dart';
-import 'package:dating/src/presentation/components/widgets/app_widgets.dart';
+import 'package:dating/src/core/utils/resources/app_color.dart';
+import 'package:dating/src/core/utils/resources/app_text.dart';
+import 'package:dating/src/core/theme/app_theme.dart';
+import 'package:dating/src/core/widgets/app_widgets.dart';
 import 'package:dating/src/presentation/features/discover/helper/interest_in_helper.dart';
 import 'package:dating/src/presentation/features/discover/model/intrest_in_model.dart';
 import 'package:flutter/material.dart';

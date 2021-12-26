@@ -1,6 +1,6 @@
-import 'package:dating/src/presentation/components/resources/app_text.dart';
-import 'package:dating/src/presentation/components/widgets/app_widgets.dart';
-import 'package:dating/src/domain/const/resource.dart';
+import 'package:dating/src/core/utils/resources/resource.dart';
+import 'package:dating/src/core/utils/resources/app_text.dart';
+import 'package:dating/src/core/widgets/app_widgets.dart';
 import 'package:dating/src/presentation/features/chat/model/chat_model.dart';
 import 'package:dating/src/presentation/features/chat/widgets/chat_list_view.dart';
 import 'package:dating/src/presentation/features/message/widgets/message_story_image_view.dart';

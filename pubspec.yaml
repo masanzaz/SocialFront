@@ -19,6 +19,11 @@ dependencies:
   cached_network_image: ^3.1.0
   http: ^0.13.4
   equatable: ^2.0.3
+  bloc_concurrency: ^0.2.0
+  stream_transform: ^2.0.0
+  flutter_bloc: ^8.0.0
+  get_it: ^7.2.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -1,5 +1,5 @@
-import 'package:dating/src/presentation/components/theme/app_theme.dart';
-import 'package:dating/src/presentation/components/widgets/app_widgets.dart';
+import 'package:dating/src/core/theme/app_theme.dart';
+import 'package:dating/src/core/widgets/app_widgets.dart';
 import 'package:dating/src/presentation/features/chat/model/chat_model.dart';
 import 'package:flutter/material.dart';
 

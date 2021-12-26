@@ -1,5 +1,5 @@
-import 'package:dating/src/presentation/components/resources/app_color.dart';
-import 'package:dating/src/presentation/components/widgets/app_widgets.dart';
+import 'package:dating/src/core/utils/resources/app_color.dart';
+import 'package:dating/src/core/widgets/app_widgets.dart';
 import 'package:dating/src/presentation/features/gender/helper/gender_helper.dart';
 import 'package:dating/src/presentation/features/gender/model/gender_model.dart';
 import 'package:flutter/material.dart';

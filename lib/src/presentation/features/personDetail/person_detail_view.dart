@@ -1,8 +1,8 @@
-import 'package:dating/src/presentation/components/resources/app_color.dart';
-import 'package:dating/src/presentation/components/resources/app_routes.dart';
-import 'package:dating/src/presentation/components/resources/app_text.dart';
-import 'package:dating/src/presentation/components/utils/navigator.dart';
-import 'package:dating/src/presentation/components/widgets/app_widgets.dart';
+import 'package:dating/src/core/utils/resources/app_color.dart';
+import 'package:dating/src/core/utils/resources/app_routes.dart';
+import 'package:dating/src/core/utils/resources/app_text.dart';
+import 'package:dating/src/core/utils/navigator.dart';
+import 'package:dating/src/core/widgets/app_widgets.dart';
 import 'package:dating/src/presentation/features/discover/model/discover_person_model.dart';
 import 'package:dating/src/presentation/features/personDetail/widgets/sliver_app_delegate.dart';
 import 'package:flutter/cupertino.dart';

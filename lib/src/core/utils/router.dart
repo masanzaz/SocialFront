@@ -1,11 +1,12 @@
 import 'package:dating/src/core/utils/resources/app_routes.dart';
-import 'package:dating/src/presentation/components/widgets/ImagePreviewScreen.dart';
+import 'package:dating/src/core/widgets/ImagePreviewScreen.dart';
+import 'package:dating/src/features/disability/presentation/disability_view.dart';
 import 'package:dating/src/presentation/features/dashboard/dashbord_view.dart';
 import 'package:dating/src/presentation/features/discover/discover_view.dart';
 import 'package:dating/src/presentation/features/enableNotification/enable_notification_view.dart';
 import 'package:dating/src/presentation/features/enterMobile/enter_mobile_view.dart';
 import 'package:dating/src/presentation/features/gender/gender_selection_view.dart';
-import 'package:dating/src/presentation/features/interest/interest_view.dart';
+import 'package:dating/src/features/interest/presentation/interest_view.dart';
 import 'package:dating/src/presentation/features/intro/intro_view.dart';
 import 'package:dating/src/presentation/features/itsMatch/its_match_view.dart';
 import 'package:dating/src/presentation/features/matches/matches_view.dart';
@@ -34,6 +35,8 @@ class RouterApp {
         return cupertinoPageRoute(GenderSelectionView(), settings);
       case AppRoutes.interest:
         return cupertinoPageRoute(InterestView(), settings);
+      case AppRoutes.disability:
+        return cupertinoPageRoute(DisabilityView(), settings);
       case AppRoutes.searchFriends:
         return cupertinoPageRoute(SearchFriendsView(), settings);
       case AppRoutes.enableNotification:

@@ -1,8 +1,7 @@
 import 'dart:math' as math;
-
-import 'package:dating/src/presentation/components/resources/app_text.dart';
-import 'package:dating/src/presentation/components/widgets/app_widgets.dart';
-import 'package:dating/src/domain/const/resource.dart';
+import 'package:dating/src/core/utils/resources/resource.dart';
+import 'package:dating/src/core/utils/resources/app_text.dart';
+import 'package:dating/src/core/widgets/app_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 

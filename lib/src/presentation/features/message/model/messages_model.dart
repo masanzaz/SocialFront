@@ -1,4 +1,4 @@
-import 'package:dating/src/domain/const/resource.dart';
+import 'package:dating/src/core/utils/resources/resource.dart';
 import 'package:dating/src/presentation/features/message/model/activities_model.dart';
 
 class MessageModel {

@@ -1,5 +1,5 @@
-import 'package:dating/src/presentation/components/resources/app_text.dart';
-import 'package:dating/src/domain/const/resource.dart';
+import 'package:dating/src/core/utils/resources/resource.dart';
+import 'package:dating/src/core/utils/resources/app_text.dart';
 
 class IntroDataModel {
   String image;

@@ -1,4 +1,4 @@
-import 'package:dating/src/presentation/components/utils/utils.dart';
+import 'package:dating/src/core/utils/utils.dart';
 import 'package:dating/src/presentation/features/dashboard/helper/bottom_navigation_helper.dart';
 import 'package:dating/src/presentation/features/discover/discover_view.dart';
 import 'package:dating/src/presentation/features/matches/matches_view.dart';

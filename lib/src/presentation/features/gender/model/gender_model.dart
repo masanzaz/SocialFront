@@ -1,4 +1,4 @@
-import 'package:dating/src/presentation/components/resources/app_text.dart';
+import 'package:dating/src/core/utils/resources/app_text.dart';
 
 class GenderModel {
   String gender;

@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:dating/src/presentation/components/resources/app_text.dart';
-import 'package:dating/src/presentation/components/utils/utils.dart';
-import 'package:dating/src/presentation/components/widgets/app_widgets.dart';
+import 'package:dating/src/core/utils/resources/app_text.dart';
+import 'package:dating/src/core/utils/utils.dart';
+import 'package:dating/src/core/widgets/app_widgets.dart';
 import 'package:dating/src/presentation/features/message/model/activities_model.dart';
 import 'package:dating/src/presentation/features/storyView/helper/timer_stream.dart';
 import 'package:flutter/material.dart';
