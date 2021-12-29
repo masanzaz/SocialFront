@@ -1,4 +1,3 @@
-import 'dart:convert';
 class PersonModel {
   int? id;
   String? email;
@@ -28,6 +27,7 @@ class PersonModel {
 
   factory PersonModel.fromJson(Map<String, dynamic> parsedJson) {
     return new PersonModel(
+        id: parsedJson['id'] ?? 0,
         email: parsedJson['email'] ?? "",
         phoneNumber: parsedJson['phoneNumber'] ?? "",
         genreId: parsedJson['genreId'] ?? 0,
@@ -40,6 +40,7 @@ class PersonModel {
   }
 
   Map<String, dynamic> toJson() => {
+    "id": id,
     "email": email,
     "phoneNumber": phoneNumber,
     "genreId": genreId,

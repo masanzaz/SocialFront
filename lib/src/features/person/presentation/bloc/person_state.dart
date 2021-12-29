@@ -24,7 +24,7 @@ class PersonsState extends Equatable {
 
   @override
   String toString() {
-    return '''DisabilitiesState { status: $status, posts: ${persons.length} }''';
+    return '''PersonsState { status: $status, persons: ${persons.length} }''';
   }
 
   @override

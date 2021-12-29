@@ -2,6 +2,8 @@ import 'package:dating/src/core/utils/resources/app_color.dart';
 import 'package:dating/src/core/utils/resources/app_text.dart';
 import 'package:dating/src/core/theme/app_theme.dart';
 import 'package:dating/src/core/widgets/app_widgets.dart';
+import 'package:dating/src/features/gender/data/repositories/gender_repository_impl.dart';
+import 'package:dating/src/features/gender/domain/models/gender_model.dart';
 import 'package:dating/src/presentation/features/discover/helper/interest_in_helper.dart';
 import 'package:dating/src/presentation/features/discover/model/intrest_in_model.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +16,24 @@ class DiscoverFilterView extends StatefulWidget {
 }
 
 class _DiscoverFilterViewState extends State<DiscoverFilterView> {
-  List<InterestInModel> _list = InterestInModel.items();
+  var _list = <GenderModel>[];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPersons();
+  }
+
+  _loadPersons() async {
+    GenderRepositoryImpl repo = new GenderRepositoryImpl();
+    repo.getAllGenders().then((persons) {
+      setState(() {
+        _list = persons;
+      });
+    });
+  }
+
+
   TextEditingController _controller = TextEditingController();
   double _distance = 5.0;
   double _ageStart = 18;
@@ -115,7 +134,7 @@ class _DiscoverFilterViewState extends State<DiscoverFilterView> {
                       child: Container(
                         padding: EdgeInsets.all(15),
                         child: Text(
-                          data.name,
+                          data.gender,
                           textAlign: TextAlign.center,
                           style: textStyleColored(FontWeight.normal, 14,
                               data.isSelected ? Colors.white : Colors.black),

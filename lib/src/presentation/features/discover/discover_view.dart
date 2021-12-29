@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:dating/src/core/params/discover_parameter.dart';
+import 'package:dating/src/core/params/new_match_parameter.dart';
 import 'package:dating/src/core/utils/resources/app_routes.dart';
 import 'package:dating/src/core/utils/resources/app_text.dart';
 import 'package:dating/src/core/utils/navigator.dart';
@@ -8,12 +10,9 @@ import 'package:dating/src/presentation/features/discover/discover_filter_view.d
 import 'package:dating/src/presentation/features/discover/helper/discover_dimension_helper.dart';
 import 'package:dating/src/presentation/features/discover/model/discover_person_model.dart';
 import 'package:dating/src/presentation/features/discover/widgets/discover_person_item_view.dart';
-import 'package:dating/src/presentation/features/discover/widgets/page_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
-import 'package:dating/src/features/person/presentation/bloc/bloc.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DiscoverView extends StatefulWidget {
   @override
@@ -21,9 +20,23 @@ class DiscoverView extends StatefulWidget {
 }
 
 class _DiscoverViewState extends State<DiscoverView> {
+  var _list = <DiscoverPersonalModel>[];
+  int selecctionId = 0;
+
   @override
   void initState() {
     super.initState();
+    _loadPersons();
+  }
+
+  _loadPersons() async {
+    PersonRepositoryImpl repo = new PersonRepositoryImpl();
+    DiscoverParameter params = new DiscoverParameter(personId: 1);
+    repo.discoverPersons(params).then((persons) {
+      setState(() {
+        _list = persons;
+      });
+    });
   }
 
   final _pageController = PageController();
@@ -35,7 +48,9 @@ class _DiscoverViewState extends State<DiscoverView> {
 
   Sink get _cardStackHideSink => _cardStackHideController.sink;
   Stream<bool> get _cardStackHideStream => _cardStackHideController.stream;
-  final _list = DiscoverPersonalModel.items();
+  //final _list = DiscoverPersonalModel.items();
+
+
   @override
   Future<void> dispose() async {
     _cardStackHideController.close();
@@ -53,7 +68,7 @@ class _DiscoverViewState extends State<DiscoverView> {
       ),
       body: Column(
         children: [
-         /* Expanded(child:BlocProvider(
+         /*Expanded(child:BlocProvider(
             create: (_) => PersonsBloc(
                 repository: PersonRepositoryImpl()),
             child: PageDiscoverView(),
@@ -118,6 +133,7 @@ class _DiscoverViewState extends State<DiscoverView> {
         scrollDirection: Axis.vertical,
         controller: _pageController,
         itemBuilder: (BuildContext context, int index) {
+          selecctionId = list[index].id;
           return DiscoverPersonItemView(
             model: list[index],
           );
@@ -197,8 +213,14 @@ class _DiscoverViewState extends State<DiscoverView> {
           FontAwesome5.heart,
           size: MediaQuery.of(context).size.width * 0.08,
         ),
-        onPressed: () {
-          AppNavigator.navigateToScreen(context, AppRoutes.itsMatch);
+        onPressed: () async {
+
+          PersonRepositoryImpl repo = new PersonRepositoryImpl();
+          var person = await repo.getPerson();
+          NewMatchParameter param = new NewMatchParameter(senderId: person.id??0, receiverId: selecctionId);
+          var  isMatch = await repo.sendMatch(param);
+          if(isMatch > 0)
+              AppNavigator.navigateToScreen(context, AppRoutes.itsMatch);
         },
         backgroundColor: Theme.of(context).primaryColor,
       ),

@@ -1,9 +1,9 @@
-import 'package:dating/src/presentation/features/discover/model/intrest_in_model.dart';
+import 'package:dating/src/features/gender/domain/models/gender_model.dart';
 
 class InterestInHelper {
-  static markSelection(InterestInModel model, List<InterestInModel> list) {
+  static markSelection(GenderModel model, List<GenderModel> list) {
     list.forEach((element) {
-      if (model.name == element.name) {
+      if (model.id == element.id) {
         element.isSelected = !element.isSelected;
       } else {
         element.isSelected = false;

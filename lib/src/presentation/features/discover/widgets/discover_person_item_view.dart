@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:dating/src/core/utils/resources/app_routes.dart';
 import 'package:dating/src/core/utils/navigator.dart';
 import 'package:dating/src/core/widgets/app_widgets.dart';

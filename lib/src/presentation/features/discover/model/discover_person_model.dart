@@ -29,11 +29,12 @@ class DiscoverPersonalModel {
 
   factory DiscoverPersonalModel.fromJson(Map<String, dynamic> json) => DiscoverPersonalModel(
       id: json["id"],
-      age: json["age"],
+      age: json["age"]??0,
       name: json["firstName"] +' '+ json["lasName"],
-      image: json["image"],
-      about: json["about"],
-      location: json["city"],
+      //image: json["image"],
+      image: R.IMAGES_MODEL1_JPG,
+      about: json["about"]??'',
+      location: json["city"]??'',
       distance: 0,
       passion: '',
       isFavourite : false

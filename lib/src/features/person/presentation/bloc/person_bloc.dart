@@ -18,7 +18,7 @@ class PersonsBloc extends Bloc<PersonsEvent, PersonsState> {
       ) async {
     try {
       var person = await  repository.getPerson();
-      DiscoverParameter params = new DiscoverParameter(personId: person.id??0);
+      DiscoverParameter params = new DiscoverParameter(personId: 1);
       if (state.status == PersonsStatus.initial) {
         final persons = await repository.discoverPersons(params);
         return emit(state.copyWith(

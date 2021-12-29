@@ -1,12 +1,12 @@
-class InterestInModel {
+class InterestInModelOld {
   String name;
   bool isSelected;
 
-  InterestInModel({required this.name, required this.isSelected});
+  InterestInModelOld({required this.name, required this.isSelected});
 
-  static List<InterestInModel> items() => [
-        InterestInModel(name: "Girls", isSelected: true),
-        InterestInModel(name: "Boys", isSelected: false),
-        InterestInModel(name: "Both", isSelected: false)
+  static List<InterestInModelOld> items() => [
+    InterestInModelOld(name: "Girls", isSelected: true),
+    InterestInModelOld(name: "Boys", isSelected: false),
+    InterestInModelOld(name: "Both", isSelected: false)
       ];
 }
