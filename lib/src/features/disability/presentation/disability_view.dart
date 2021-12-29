@@ -66,7 +66,7 @@ class DisabilityView extends StatelessWidget {
     margin: EdgeInsets.only(top: 30),
     child: ElevatedButton(
         onPressed: () {
-          AppNavigator.navigateToScreen(context, AppRoutes.interest);
+          AppNavigator.navigateToScreen(context, AppRoutes.hobby);
         },
         child: Text(
           AppText.continueText,

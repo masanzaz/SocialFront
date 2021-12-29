@@ -1,7 +1,7 @@
 import 'package:dating/src/core/widgets/app_widgets.dart';
-import 'package:dating/src/features/interest/presentation/helper/interest_helper.dart';
-import 'package:dating/src/features/interest/domain/models/interest_model.dart';
-import 'package:dating/src/features/interest/presentation/bloc/bloc.dart';
+import 'package:dating/src/features/hobbie/presentation/helper/hobbie_helper.dart';
+import 'package:dating/src/features/hobbie/domain/models/interest_model.dart';
+import 'package:dating/src/features/hobbie/presentation/bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:dating/posts/models/post.dart';
-import 'package:dating/src/features/interest/domain/repositories/hobby_repository.dart';
+import 'package:dating/src/features/hobbie/domain/repositories/hobby_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:http/http.dart' as http;
 import 'package:stream_transform/stream_transform.dart';

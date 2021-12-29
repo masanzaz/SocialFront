@@ -1,5 +1,5 @@
 import 'package:dating/src/core/params/request_parameter.dart';
-import 'package:dating/src/features/interest/domain/repositories/hobby_repository.dart';
+import 'package:dating/src/features/hobbie/domain/repositories/hobby_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'bloc.dart';
 

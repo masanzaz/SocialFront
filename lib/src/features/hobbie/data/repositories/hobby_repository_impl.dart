@@ -1,7 +1,7 @@
 import 'package:dating/src/core/params/request_parameter.dart';
-import 'package:dating/src/features/interest/domain/repositories/hobby_repository.dart';
+import 'package:dating/src/features/hobbie/domain/repositories/hobby_repository.dart';
 import 'dart:convert' as convert;
-import 'package:dating/src/features/interest/domain/models/interest_model.dart';
+import 'package:dating/src/features/hobbie/domain/models/interest_model.dart';
 import 'package:http/http.dart' as http;
 
 class HobbyRepositoryImpl implements HobbyRepository {

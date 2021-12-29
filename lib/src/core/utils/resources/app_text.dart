@@ -6,7 +6,7 @@ class AppText {
   static const IntroSubTitle1 =
       "Platform uses AI to ensure you receive best matches!";
   static const IntroSubTitle2 =
-      "We itsMatch you with the people whom you shared a common interest";
+      "We itsMatch you with the people whom you shared a common hobbie";
   static const IntroSubTitle3 = "Sign up today and enjoy the premium benefits";
   static const signUpButtonText = "Create an account";
   static const signInText = "Already have an account?";
@@ -43,6 +43,9 @@ class AppText {
   static const man = "Man";
   static const woman = "Woman";
   static const other = "Other";
+
+  //Intsrested
+  static const interestedTitle = "I am interested in ";
 
   // Disability
   static const yourDisability = "Your Disability";

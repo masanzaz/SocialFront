@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         title: 'Social Site',
         debugShowCheckedModeBanner: false,
         theme: AppThemeData.appThemeData(),
-        initialRoute: '/',
+        initialRoute: '/discover',
         onGenerateRoute: RouterApp.generateRoute);
   }
 }

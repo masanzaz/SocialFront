@@ -3,6 +3,8 @@ import 'package:dating/src/core/utils/resources/app_routes.dart';
 import 'package:dating/src/core/utils/resources/app_text.dart';
 import 'package:dating/src/core/utils/navigator.dart';
 import 'package:dating/src/core/widgets/app_widgets.dart';
+import 'package:dating/src/features/person/data/repositories/person_repository_impl.dart';
+import 'package:dating/src/features/person/domain/repositories/person_repository.dart';
 import 'package:flutter/material.dart';
 
 class EnableNotificationView extends StatelessWidget {
@@ -62,7 +64,12 @@ class EnableNotificationView extends StatelessWidget {
         width: double.infinity,
         margin: EdgeInsets.only(top: 30),
         child: ElevatedButton(
-            onPressed: () {
+            onPressed: () async {
+
+              PersonRepository repo = new PersonRepositoryImpl();
+              var person = await  repo.getPerson();
+              var result = repo.registerPerson(person);
+
               AppNavigator.navigateToScreen(context, AppRoutes.dashboard);
             },
             child: Text(

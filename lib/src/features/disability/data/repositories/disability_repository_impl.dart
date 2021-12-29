@@ -1,9 +1,10 @@
 import 'package:dating/src/core/params/request_parameter.dart';
 import 'package:dating/src/features/disability/domain/models/disability_model.dart';
 import 'package:dating/src/features/disability/domain/repositories/disability_repository.dart';
+import 'package:dating/src/core/utils/resources/constants.dart';
 import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
-import 'package:dating/src/core/utils/resources/constants.dart';
+
 class DisabilityRepositoryImpl implements DisabilityRepository {
   final _path = 'Disability';
   @override

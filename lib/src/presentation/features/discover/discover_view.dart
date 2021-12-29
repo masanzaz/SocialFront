@@ -1,16 +1,19 @@
 import 'dart:async';
-
 import 'package:dating/src/core/utils/resources/app_routes.dart';
 import 'package:dating/src/core/utils/resources/app_text.dart';
 import 'package:dating/src/core/utils/navigator.dart';
 import 'package:dating/src/core/widgets/app_widgets.dart';
+import 'package:dating/src/features/person/data/repositories/person_repository_impl.dart';
 import 'package:dating/src/presentation/features/discover/discover_filter_view.dart';
 import 'package:dating/src/presentation/features/discover/helper/discover_dimension_helper.dart';
 import 'package:dating/src/presentation/features/discover/model/discover_person_model.dart';
 import 'package:dating/src/presentation/features/discover/widgets/discover_person_item_view.dart';
+import 'package:dating/src/presentation/features/discover/widgets/page_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
+import 'package:dating/src/features/person/presentation/bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DiscoverView extends StatefulWidget {
   @override
@@ -18,20 +21,23 @@ class DiscoverView extends StatefulWidget {
 }
 
 class _DiscoverViewState extends State<DiscoverView> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   final _pageController = PageController();
 
   DiscoverDimensionHelper get _discoverDimensionHelper =>
       DiscoverDimensionHelper(context: context);
   final StreamController<bool> _cardStackHideController =
-      StreamController<bool>.broadcast();
+  StreamController<bool>.broadcast();
 
   Sink get _cardStackHideSink => _cardStackHideController.sink;
-
   Stream<bool> get _cardStackHideStream => _cardStackHideController.stream;
-  final List<DiscoverPersonalModel> _list = DiscoverPersonalModel.items();
-
+  final _list = DiscoverPersonalModel.items();
   @override
-  void dispose() {
+  Future<void> dispose() async {
     _cardStackHideController.close();
     super.dispose();
   }
@@ -47,12 +53,18 @@ class _DiscoverViewState extends State<DiscoverView> {
       ),
       body: Column(
         children: [
+         /* Expanded(child:BlocProvider(
+            create: (_) => PersonsBloc(
+                repository: PersonRepositoryImpl()),
+            child: PageDiscoverView(),
+          )
+          ),*/
           Stack(
             alignment: Alignment.topCenter,
             children: [
-              _stackedCard(true),
-              _stackedCard(false),
-              _pageView(),
+              _stackedCard(true, _list),
+              _stackedCard(false, _list),
+              _pageView(_list),
             ],
           ),
           _bottomRow()
@@ -62,17 +74,17 @@ class _DiscoverViewState extends State<DiscoverView> {
   }
 
   Widget _title() => Column(
-        children: [
-          Text(
-            AppText.discover,
-            style: textStyleColored(FontWeight.bold, 25, Colors.black),
-          ),
-          Text(
-            "London",
-            style: textStyleColored(FontWeight.normal, 12.5, Colors.black),
-          )
-        ],
-      );
+    children: [
+      Text(
+        AppText.discover,
+        style: textStyleColored(FontWeight.bold, 25, Colors.black),
+      ),
+      Text(
+        "London",
+        style: textStyleColored(FontWeight.normal, 12.5, Colors.black),
+      )
+    ],
+  );
 
   Widget _filterIcon() {
     return Container(
@@ -96,30 +108,30 @@ class _DiscoverViewState extends State<DiscoverView> {
     );
   }
 
-  Widget _pageView() => ClipRRect(
-        borderRadius: DiscoverPersonItemView.borderRadius(),
-        child: Container(
-          width: _discoverDimensionHelper.pageViewWidth,
-          height: _discoverDimensionHelper.pageViewHeight,
-          child: PageView.builder(
-            itemCount: _list.length,
-            scrollDirection: Axis.vertical,
-            controller: _pageController,
-            itemBuilder: (BuildContext context, int index) {
-              return DiscoverPersonItemView(
-                model: _list[index],
-              );
-            },
-            onPageChanged: (int index) {
-              _cardStackHideSink.add(index != _list.length - 1);
-            },
-          ),
-        ),
-      );
+  Widget _pageView(List<DiscoverPersonalModel> list) => ClipRRect(
+    borderRadius: DiscoverPersonItemView.borderRadius(),
+    child: Container(
+      width: _discoverDimensionHelper.pageViewWidth,
+      height: _discoverDimensionHelper.pageViewHeight,
+      child: PageView.builder(
+        itemCount: list.length,
+        scrollDirection: Axis.vertical,
+        controller: _pageController,
+        itemBuilder: (BuildContext context, int index) {
+          return DiscoverPersonItemView(
+            model: list[index],
+          );
+        },
+        onPageChanged: (int index) {
+          _cardStackHideSink.add(index != list.length - 1);
+        },
+      ),
+    ),
+  );
 
-  Widget _stackedCard(bool isFirst) => StreamBuilder<bool>(
+  Widget _stackedCard(bool isFirst, List<DiscoverPersonalModel> list) => StreamBuilder<bool>(
       stream: _cardStackHideStream,
-      initialData: _list.isNotEmpty,
+      initialData: list.isNotEmpty,
       builder: (context, snapshot) {
         return AnimatedOpacity(
           duration: Duration(milliseconds: 200),
@@ -148,21 +160,21 @@ class _DiscoverViewState extends State<DiscoverView> {
       });
 
   Widget _bottomRow() => Expanded(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _rejectPersonButton(),
-            SizedBox(
-              width: 25,
-            ),
-            _heartPersonButton(),
-            SizedBox(
-              width: 25,
-            ),
-            _favPersonButton()
-          ],
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        _rejectPersonButton(),
+        SizedBox(
+          width: 25,
         ),
-      );
+        _heartPersonButton(),
+        SizedBox(
+          width: 25,
+        ),
+        _favPersonButton()
+      ],
+    ),
+  );
 
   FloatingActionButton _rejectPersonButton() {
     return FloatingActionButton(

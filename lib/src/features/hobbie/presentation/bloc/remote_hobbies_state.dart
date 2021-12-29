@@ -1,4 +1,4 @@
-import 'package:dating/src/features/interest/domain/models/interest_model.dart';
+import 'package:dating/src/features/hobbie/domain/models/interest_model.dart';
 import 'package:equatable/equatable.dart';
 
 enum HobbyStatus { initial, success, failure }

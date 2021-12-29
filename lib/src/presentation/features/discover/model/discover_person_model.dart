@@ -1,5 +1,8 @@
 
+import 'package:dating/src/core/params/discover_parameter.dart';
 import 'package:dating/src/core/utils/resources/resource.dart';
+import 'package:dating/src/features/person/data/repositories/person_repository_impl.dart';
+import 'package:dating/src/features/person/domain/repositories/person_repository.dart';
 
 class DiscoverPersonalModel {
   int id;
@@ -23,6 +26,26 @@ class DiscoverPersonalModel {
       required this.distance,
       required this.about,
       this.isFavourite = false});
+
+  factory DiscoverPersonalModel.fromJson(Map<String, dynamic> json) => DiscoverPersonalModel(
+      id: json["id"],
+      age: json["age"],
+      name: json["firstName"] +' '+ json["lasName"],
+      image: json["image"],
+      about: json["about"],
+      location: json["city"],
+      distance: 0,
+      passion: '',
+      isFavourite : false
+  );
+
+  static Future<List<DiscoverPersonalModel>> getItems() async {
+
+    PersonRepository repo = new PersonRepositoryImpl();
+    var person = await  repo.getPerson();
+    DiscoverParameter params = new DiscoverParameter(personId: person.id??0);
+    return await repo.discoverPersons(params);
+  }
 
   static List<DiscoverPersonalModel> items() => [
         DiscoverPersonalModel(
