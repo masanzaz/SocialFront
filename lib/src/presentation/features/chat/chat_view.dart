@@ -1,18 +1,46 @@
+import 'package:dating/src/core/params/chat_parameter.dart';
+import 'package:dating/src/core/params/new_message_parameter.dart';
+import 'package:dating/src/core/utils/navigator.dart';
 import 'package:dating/src/core/utils/resources/resource.dart';
 import 'package:dating/src/core/utils/resources/app_text.dart';
 import 'package:dating/src/core/widgets/app_widgets.dart';
+import 'package:dating/src/features/chat/data/repositories/chat_repository_impl.dart';
+import 'package:dating/src/features/match/data/repositories/match_repository_impl.dart';
+import 'package:dating/src/features/person/data/repositories/person_repository_impl.dart';
 import 'package:dating/src/presentation/features/chat/model/chat_model.dart';
 import 'package:dating/src/presentation/features/chat/widgets/chat_list_view.dart';
 import 'package:dating/src/presentation/features/message/widgets/message_story_image_view.dart';
 import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class ChatView extends StatefulWidget {
+  final int matchId;
+  const ChatView({required this.matchId});
+
   @override
   _ChatViewState createState() => _ChatViewState();
 }
 
 class _ChatViewState extends State<ChatView> {
-  List<ChatModel> _list = ChatModel.items();
+  final myController = TextEditingController();
+  var _list = <ChatModel>[];
+  @override
+  void initState() {
+    super.initState();
+    _loadPersons();
+  }
+
+  _loadPersons() async {
+    PersonRepositoryImpl repo = new PersonRepositoryImpl();
+    var person = await repo.getPerson();
+    ChatRepositoryImpl repoChat = new ChatRepositoryImpl();
+    ChatParameter params = new ChatParameter(matchId: widget.matchId, personId: person.id??0);
+    repoChat.getMessages(params).then((persons) {
+      setState(() {
+        _list = persons;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -117,6 +145,7 @@ class _ChatViewState extends State<ChatView> {
             Expanded(
               child: TextField(
                 autofocus: false,
+                controller: myController,
                 textInputAction: TextInputAction.done,
                 decoration: InputDecoration(
                     hintText: AppText.yourMessage,
@@ -125,7 +154,8 @@ class _ChatViewState extends State<ChatView> {
                     enabledBorder: inputBorderOutline,
                     isDense: true,
                     border: inputBorderOutline),
-                onTap: () {},
+                onTap: (
+                    ) {},
               ),
             ),
             SizedBox(
@@ -133,14 +163,26 @@ class _ChatViewState extends State<ChatView> {
             ),
             InkWell(
               borderRadius: BorderRadius.circular(12),
-              onTap: () {},
+              onTap: () async {
+                if(myController.text.isNotEmpty)
+                {
+                  PersonRepositoryImpl repoPerson = new PersonRepositoryImpl();
+                  var person = await repoPerson.getPerson();
+                  MatchRepositoryImpl repo = new MatchRepositoryImpl();
+                  NewMessageParameter param = new NewMessageParameter(matchId: widget.matchId, senderId: person.id??0,
+                      message: myController.text);
+                  await repo.sendMessage(param);
+                  AppNavigator.navigateToScreenWithoutNavBar(
+                      context, ChatView(matchId: widget.matchId), PageTransitionAnimation.cupertino);
+                }
+              },
               child: Container(
                 padding: EdgeInsets.all(11.5),
                 decoration: BoxDecoration(
                     border: Border.all(color: Colors.black.withOpacity(0.1)),
                     borderRadius: BorderRadius.circular(12)),
                 child: Icon(
-                  Icons.mic,
+                  Icons.send,
                   color: Theme.of(context).primaryColor,
                   size: 24,
                 ),

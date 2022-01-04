@@ -1,16 +1,16 @@
 import 'dart:ui';
-
 import 'package:dating/src/core/utils/resources/app_routes.dart';
 import 'package:dating/src/core/utils/navigator.dart';
 import 'package:dating/src/core/widgets/app_widgets.dart';
 import 'package:dating/src/presentation/features/discover/model/discover_person_model.dart';
+import 'package:dating/src/presentation/features/matches/model/matches_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 
 class MatchesGridView extends StatefulWidget {
-  final List<DiscoverPersonalModel> list;
+  final List<MatchesModel> list;
 
   const MatchesGridView({required this.list});
 
@@ -19,7 +19,7 @@ class MatchesGridView extends StatefulWidget {
 }
 
 class _MatchesGridViewState extends State<MatchesGridView> {
-  List<DiscoverPersonalModel> get _list => widget.list;
+  List<MatchesModel> get _list => widget.list;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class _MatchesGridViewState extends State<MatchesGridView> {
     );
   }
 
-  _itemView(DiscoverPersonalModel model) => Container(
+  _itemView(MatchesModel model) => Container(
         margin: EdgeInsets.all(5),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(16),
@@ -82,7 +82,7 @@ class _MatchesGridViewState extends State<MatchesGridView> {
         ),
       );
 
-  Widget _nameAge(DiscoverPersonalModel model) {
+  Widget _nameAge(MatchesModel model) {
     return IgnorePointer(
       child: Container(
         alignment: Alignment.bottomLeft,

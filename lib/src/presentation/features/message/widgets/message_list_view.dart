@@ -1,4 +1,5 @@
 import 'package:dating/src/core/utils/navigator.dart';
+import 'package:dating/src/core/utils/resources/app_routes.dart';
 import 'package:dating/src/core/utils/utils.dart';
 import 'package:dating/src/core/widgets/app_widgets.dart';
 import 'package:dating/src/presentation/features/chat/chat_view.dart';
@@ -10,7 +11,6 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class MessageListView extends StatefulWidget {
   final List<MessageModel> list;
-
   const MessageListView(this.list);
 
   @override
@@ -36,7 +36,7 @@ class _MessageListViewState extends State<MessageListView> {
       title: _title(model),
       subtitle: _subTitle(model),
       onTap: () {
-        _messageSheet();
+        _messageSheet(model);
       });
 
   Widget _image(MessageModel model) {
@@ -110,13 +110,13 @@ class _MessageListViewState extends State<MessageListView> {
       padding: EdgeInsets.all(5),
       decoration: BoxDecoration(
           color: Theme.of(context).primaryColor, shape: BoxShape.circle),
-      child: Text(model.unreadCount,
+      child: Text(model.unreadCount.toString(),
           style: textStyleColored(FontWeight.normal, 12, Colors.white)),
     );
   }
 
-  _messageSheet() {
+  _messageSheet(MessageModel model) {
     AppNavigator.navigateToScreenWithoutNavBar(
-        context, ChatView(), PageTransitionAnimation.cupertino);
+        context, ChatView(matchId: model.id), PageTransitionAnimation.cupertino);
   }
 }

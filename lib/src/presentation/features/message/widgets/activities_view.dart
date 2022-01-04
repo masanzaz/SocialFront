@@ -1,13 +1,14 @@
 import 'package:dating/src/core/utils/navigator.dart';
 import 'package:dating/src/core/utils/utils.dart';
 import 'package:dating/src/core/widgets/app_widgets.dart';
+import 'package:dating/src/presentation/features/matches/model/matches_model.dart';
 import 'package:dating/src/presentation/features/message/model/activities_model.dart';
 import 'package:dating/src/presentation/features/message/widgets/message_story_image_view.dart';
 import 'package:dating/src/presentation/features/storyView/story_view.dart';
 import 'package:flutter/material.dart';
 
 class ActivitiesView extends StatefulWidget {
-  final List<ActivitiesModel> list;
+  final List<MatchesModel> list;
 
   const ActivitiesView(this.list);
 
@@ -27,12 +28,12 @@ class _ActivitiesViewState extends State<ActivitiesView> {
     );
   }
 
-  Widget _itemView(ActivitiesModel model) => Column(
+  Widget _itemView(MatchesModel model) => Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           MessageStoryImageView(
-            showStoryBorder: model.isSeen,
+            showStoryBorder: model.isFavourite,
             heroId: model.id.toString(),
             onImageTap: () {
               dismissKeyboard(context);
@@ -47,7 +48,7 @@ class _ActivitiesViewState extends State<ActivitiesView> {
         ],
       );
 
-  Container _name(ActivitiesModel model) {
+  Container _name(MatchesModel model) {
     return Container(
       width: 70,
       alignment: Alignment.center,

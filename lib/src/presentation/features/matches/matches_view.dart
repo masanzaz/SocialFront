@@ -1,5 +1,8 @@
+import 'package:dating/src/core/params/discover_parameter.dart';
 import 'package:dating/src/core/utils/resources/app_text.dart';
 import 'package:dating/src/core/widgets/app_widgets.dart';
+import 'package:dating/src/features/match/data/repositories/match_repository_impl.dart';
+import 'package:dating/src/features/person/data/repositories/person_repository_impl.dart';
 import 'package:dating/src/presentation/features/discover/discover_filter_view.dart';
 import 'package:dating/src/presentation/features/discover/model/discover_person_model.dart';
 import 'package:dating/src/presentation/features/matches/model/matches_model.dart';
@@ -12,10 +15,28 @@ class MatchesView extends StatefulWidget {
 }
 
 class _MatchesViewState extends State<MatchesView> {
+  var _list = <MatchesModel>[];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadMatches();
+  }
+
+  _loadMatches() async {
+    PersonRepositoryImpl repo = new PersonRepositoryImpl();
+    var person = await repo.getPerson();
+    MatchRepositoryImpl repoMatch = new MatchRepositoryImpl();
+    DiscoverParameter params = new DiscoverParameter(personId: person.id??0);
+    repoMatch.getMatches(params).then((matches) {
+      setState(() {
+        _list = matches;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    List<DiscoverPersonalModel> _list = MatchesModel.items();
-
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 80,

@@ -1,3 +1,5 @@
+import 'package:dating/src/core/utils/navigator.dart';
+import 'package:dating/src/core/utils/resources/app_routes.dart';
 import 'package:dating/src/core/utils/utils.dart';
 import 'package:dating/src/presentation/features/dashboard/helper/bottom_navigation_helper.dart';
 import 'package:dating/src/presentation/features/discover/discover_view.dart';
@@ -14,7 +16,7 @@ class DashBoardView extends StatefulWidget {
 
 class _DashBoardViewState extends State<DashBoardView> {
   late PersistentTabController _controller;
-
+   int? newIndex = -1;
   @override
   void initState() {
     _controller = PersistentTabController(initialIndex: 0);
@@ -26,6 +28,13 @@ class _DashBoardViewState extends State<DashBoardView> {
 
   @override
   Widget build(BuildContext context) {
+    int? _index =
+    ModalRoute.of(context)?.settings.arguments as int?;
+    if(newIndex != -1)
+      {
+        _index = newIndex;
+      }
+    _controller.index = _index??0;
     return Scaffold(
       body: SafeArea(
         child: PersistentTabView(
@@ -41,10 +50,26 @@ class _DashBoardViewState extends State<DashBoardView> {
           hideNavigationBarWhenKeyboardShows: true,
           popAllScreensOnTapOfSelectedTab: true,
           popActionScreens: PopActionScreensType.all,
+
           itemAnimationProperties: ItemAnimationProperties(
             duration: Duration(milliseconds: 200),
             curve: Curves.ease,
           ),
+          onItemSelected: (int) {
+            newIndex = int;
+           switch (int) {
+             case 1:
+               AppNavigator.navigateToScreen(
+                   context, AppRoutes.dashboard, int);
+               break;
+             case 2:
+               AppNavigator.navigateToScreen(
+                   context, AppRoutes.dashboard, int);
+               break;
+             case 3:
+               break;
+           }
+          },
           screenTransitionAnimation: ScreenTransitionAnimation(
             animateTabTransition: true,
             curve: Curves.ease,

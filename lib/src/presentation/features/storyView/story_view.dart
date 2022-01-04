@@ -1,16 +1,21 @@
 import 'dart:async';
 
+import 'package:dating/src/core/params/new_message_parameter.dart';
+import 'package:dating/src/core/utils/navigator.dart';
+import 'package:dating/src/core/utils/resources/app_routes.dart';
 import 'package:dating/src/core/utils/resources/app_text.dart';
 import 'package:dating/src/core/utils/utils.dart';
 import 'package:dating/src/core/widgets/app_widgets.dart';
+import 'package:dating/src/features/match/data/repositories/match_repository_impl.dart';
+import 'package:dating/src/features/person/data/repositories/person_repository_impl.dart';
+import 'package:dating/src/presentation/features/matches/model/matches_model.dart';
 import 'package:dating/src/presentation/features/message/model/activities_model.dart';
 import 'package:dating/src/presentation/features/storyView/helper/timer_stream.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class StoryView extends StatefulWidget {
-  final ActivitiesModel activitiesModel;
-
+  final MatchesModel activitiesModel;
   const StoryView({required this.activitiesModel});
 
   @override
@@ -19,6 +24,7 @@ class StoryView extends StatefulWidget {
 
 class _StoryViewState extends State<StoryView> {
   final StoryProgressStream _timerStream = StoryProgressStream();
+  final myController = TextEditingController();
   late Timer _timer;
   bool _timerStop = false;
 
@@ -145,6 +151,7 @@ class _StoryViewState extends State<StoryView> {
             Expanded(
               child: TextField(
                 autofocus: false,
+                controller: myController,
                 onEditingComplete: () {
                   dismissKeyboard(context);
                 },
@@ -169,7 +176,19 @@ class _StoryViewState extends State<StoryView> {
             ),
             InkWell(
               borderRadius: BorderRadius.circular(12),
-              onTap: () {},
+              onTap: () async {
+              if(myController.text.isNotEmpty)
+                {
+                    PersonRepositoryImpl repoPerson = new PersonRepositoryImpl();
+                    var person = await repoPerson.getPerson();
+                    MatchRepositoryImpl repo = new MatchRepositoryImpl();
+                    NewMessageParameter param = new NewMessageParameter(matchId: widget.activitiesModel.id, senderId: person.id??0,
+                        message: myController.text);
+                    await repo.sendMessage(param);
+                    AppNavigator.navigateToScreen(
+                        context, AppRoutes.dashboard, 2);
+                }
+              },
               child: Container(
                 padding: EdgeInsets.all(11.5),
                 decoration: BoxDecoration(

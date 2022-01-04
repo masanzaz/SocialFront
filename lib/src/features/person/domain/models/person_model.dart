@@ -7,6 +7,7 @@ class PersonModel {
   String? firstName;
   String? lasName;
   String? image;
+  String? about;
   DateTime? dateOfBirth;
   List<int>? hobbies  = [];
   List<int>? disabilities = [];
@@ -20,6 +21,7 @@ class PersonModel {
     this.firstName,
     this.lasName,
     this.image,
+    this.about,
     this.dateOfBirth,
     this.hobbies,
     this.disabilities
@@ -34,6 +36,8 @@ class PersonModel {
         interestedId: parsedJson['interestedId'] ?? 0,
         firstName: parsedJson['firstName'] ?? "",
         lasName: parsedJson['lasName'] ?? "",
+        image: parsedJson['image'] ?? "",
+        about: parsedJson['about'] ?? "",
         dateOfBirth: parsedJson['dateOfBirth'],
         hobbies: parsedJson['hobbies']?.cast<int>(),
         disabilities: parsedJson['disabilities']?.cast<int>());
@@ -48,6 +52,7 @@ class PersonModel {
     "firstName": firstName,
     "lasName": lasName,
     "image": image,
+    "about": about,
     "dateOfBirth": dateOfBirth,
     "hobbies": hobbies,
     "disabilities": disabilities

@@ -1,4 +1,5 @@
 import 'package:dating/src/core/utils/resources/resource.dart';
+import 'package:dating/src/presentation/features/matches/model/matches_model.dart';
 import 'package:dating/src/presentation/features/message/model/activities_model.dart';
 
 class MessageModel {
@@ -8,8 +9,8 @@ class MessageModel {
   final String name;
   final String recentMessage;
   final String time;
-  final String unreadCount;
-  final ActivitiesModel? activitiesModel;
+  final int unreadCount;
+  final MatchesModel? activitiesModel;
 
   MessageModel(
       {required this.id,
@@ -21,7 +22,18 @@ class MessageModel {
       required this.unreadCount,
       this.activitiesModel});
 
-  static List<MessageModel> items() => [
+  factory MessageModel.fromJson(Map<String, dynamic> json) => MessageModel(
+      id: json["id"],
+      name: json["firstName"],
+      //userProfile: json["image"],
+      userProfile: R.IMAGES_MODEL1_JPG,
+      hasStory: false,
+      recentMessage: json["content"],
+      time: json["time"],
+      unreadCount: json["unreadCount"]
+  );
+
+ /* static List<MessageModel> items() => [
         MessageModel(
             id: 11,
             name: "Emma",
@@ -30,12 +42,7 @@ class MessageModel {
             recentMessage: "Ok, see you then",
             time: "20 min",
             unreadCount: "2",
-            activitiesModel: ActivitiesModel(
-                id: 11,
-                name: "Emma",
-                userProfile: R.IMAGES_MODEL1_JPG,
-                image: R.IMAGES_MODEL1_JPG,
-                isSeen: false)),
+),
         MessageModel(
             id: 21,
             name: "Ava",
@@ -52,12 +59,7 @@ class MessageModel {
             recentMessage: "Bye!",
             time: "1 hr",
             unreadCount: "0",
-            activitiesModel: ActivitiesModel(
-                id: 31,
-                name: "Sophia",
-                userProfile: R.IMAGES_MODEL3_JPG,
-                image: R.IMAGES_MODEL3_JPG,
-                isSeen: false)),
+),
         MessageModel(
             id: 41,
             name: "Emelie",
@@ -82,5 +84,5 @@ class MessageModel {
             recentMessage: "I wish, I could",
             time: "6 hr",
             unreadCount: "0")
-      ];
+      ];*/
 }

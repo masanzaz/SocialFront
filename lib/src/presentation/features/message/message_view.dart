@@ -1,6 +1,9 @@
+import 'package:dating/src/core/params/discover_parameter.dart';
 import 'package:dating/src/core/utils/resources/app_text.dart';
 import 'package:dating/src/core/widgets/app_widgets.dart';
-import 'package:dating/src/presentation/features/message/model/activities_model.dart';
+import 'package:dating/src/features/match/data/repositories/match_repository_impl.dart';
+import 'package:dating/src/features/person/data/repositories/person_repository_impl.dart';
+import 'package:dating/src/presentation/features/matches/model/matches_model.dart';
 import 'package:dating/src/presentation/features/message/model/messages_model.dart';
 import 'package:dating/src/presentation/features/message/widgets/activities_view.dart';
 import 'package:dating/src/presentation/features/message/widgets/message_list_view.dart';
@@ -12,8 +15,32 @@ class MessageView extends StatefulWidget {
 }
 
 class _MessageViewState extends State<MessageView> {
-  List<ActivitiesModel> _list = ActivitiesModel.items();
-  List<MessageModel> _listMessage = MessageModel.items();
+  var _list = <MatchesModel>[];
+  var _listMessage = <MessageModel>[];
+  @override
+  void initState() {
+    super.initState();
+    _loadMatches();
+  }
+
+  _loadMatches() async {
+    PersonRepositoryImpl repo = new PersonRepositoryImpl();
+    var person = await repo.getPerson();
+    MatchRepositoryImpl repoMatch = new MatchRepositoryImpl();
+    DiscoverParameter params = new DiscoverParameter(personId: person.id??0);
+    repoMatch.getMatches(params).then((matches) {
+      setState(() {
+        _list = matches;
+      });
+    });
+
+    repoMatch.getLasMessages(params).then((matches) {
+      setState(() {
+        _listMessage = matches;
+      });
+    });
+
+  }
 
   @override
   Widget build(BuildContext context) {

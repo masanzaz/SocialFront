@@ -1,13 +1,16 @@
 import 'dart:math' as math;
+import 'package:dating/src/core/utils/navigator.dart';
+import 'package:dating/src/core/utils/resources/app_routes.dart';
 import 'package:dating/src/core/utils/resources/resource.dart';
 import 'package:dating/src/core/utils/resources/app_text.dart';
 import 'package:dating/src/core/widgets/app_widgets.dart';
+import 'package:dating/src/presentation/features/chat/chat_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class ItsMatchView extends StatelessWidget {
   const ItsMatchView({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -131,7 +134,12 @@ class ItsMatchView extends StatelessWidget {
   _buildSayHelloButton(BuildContext context) => Container(
       width: double.infinity,
       child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            int matchId =
+            ModalRoute.of(context)?.settings.arguments as int;
+            AppNavigator.navigateToScreenWithoutNavBar(
+                context, ChatView(matchId: matchId), PageTransitionAnimation.cupertino);
+          },
           child: Text(
             AppText.sayHello,
             style: textStyleColored(FontWeight.bold, 16, null),
@@ -141,7 +149,9 @@ class ItsMatchView extends StatelessWidget {
       margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.015),
       width: double.infinity,
       child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            AppNavigator.navigateToScreen(context, AppRoutes.discover);
+          },
           style: Theme.of(context).elevatedButtonTheme.style!.copyWith(
               backgroundColor: MaterialStateProperty.all(Colors.pink.shade50)),
           child: Text(

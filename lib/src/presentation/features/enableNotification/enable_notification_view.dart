@@ -65,12 +65,15 @@ class EnableNotificationView extends StatelessWidget {
         margin: EdgeInsets.only(top: 30),
         child: ElevatedButton(
             onPressed: () async {
-
               PersonRepository repo = new PersonRepositoryImpl();
               var person = await  repo.getPerson();
-              var result = repo.registerPerson(person);
-
-              AppNavigator.navigateToScreen(context, AppRoutes.dashboard);
+              if(person.id == 0)
+                {
+                  var result = await repo.registerPerson(person);
+                  person.id = result;
+                  repo.savePerson(person);
+                }
+              AppNavigator.navigateToScreen(context, AppRoutes.dashboard, 0);
             },
             child: Text(
               AppText.iWantToNotified,

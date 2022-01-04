@@ -21,7 +21,7 @@ class DiscoverView extends StatefulWidget {
 
 class _DiscoverViewState extends State<DiscoverView> {
   var _list = <DiscoverPersonalModel>[];
-  int selecctionId = 0;
+  late DiscoverPersonalModel selecction;
 
   @override
   void initState() {
@@ -31,7 +31,8 @@ class _DiscoverViewState extends State<DiscoverView> {
 
   _loadPersons() async {
     PersonRepositoryImpl repo = new PersonRepositoryImpl();
-    DiscoverParameter params = new DiscoverParameter(personId: 1);
+    var person = await repo.getPerson();
+    DiscoverParameter params = new DiscoverParameter(personId: person.id??0);
     repo.discoverPersons(params).then((persons) {
       setState(() {
         _list = persons;
@@ -133,7 +134,7 @@ class _DiscoverViewState extends State<DiscoverView> {
         scrollDirection: Axis.vertical,
         controller: _pageController,
         itemBuilder: (BuildContext context, int index) {
-          selecctionId = list[index].id;
+          selecction = list[index];
           return DiscoverPersonItemView(
             model: list[index],
           );
@@ -214,13 +215,17 @@ class _DiscoverViewState extends State<DiscoverView> {
           size: MediaQuery.of(context).size.width * 0.08,
         ),
         onPressed: () async {
-
           PersonRepositoryImpl repo = new PersonRepositoryImpl();
           var person = await repo.getPerson();
-          NewMatchParameter param = new NewMatchParameter(senderId: person.id??0, receiverId: selecctionId);
+          NewMatchParameter param = new NewMatchParameter(senderId: person.id??0, receiverId: selecction.id);
           var  isMatch = await repo.sendMatch(param);
-          if(isMatch > 0)
-              AppNavigator.navigateToScreen(context, AppRoutes.itsMatch);
+          if(isMatch > 0) {
+            AppNavigator.navigateToScreen(context, AppRoutes.itsMatch, isMatch);
+          }
+          else
+            {
+              AppNavigator.navigateToScreen(context, AppRoutes.discover);
+            }
         },
         backgroundColor: Theme.of(context).primaryColor,
       ),

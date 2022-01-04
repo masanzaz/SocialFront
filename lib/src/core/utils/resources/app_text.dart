@@ -35,6 +35,7 @@ class AppText {
   static const confirmText = "Confirm";
   static const firstName = "First Name";
   static const lastName = "Last Name";
+  static const aboutMe = "About me";
   static const birthDateHint = "DD/MM/YYYY";
   static const invalidBirthdateError = "Invalid birthdate format";
 

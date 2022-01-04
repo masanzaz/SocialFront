@@ -10,6 +10,13 @@ class ChatModel {
       required this.seen,
       required this.fromOther});
 
+  factory ChatModel.fromJson(Map<String, dynamic> json) => ChatModel(
+      message: json["content"],
+      time: json["time"],
+      seen: json["status"],
+      fromOther: json["fromOther"]
+  );
+
   static List<ChatModel> items() => [
         ChatModel(
             message:
