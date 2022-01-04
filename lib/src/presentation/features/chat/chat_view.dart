@@ -9,13 +9,14 @@ import 'package:dating/src/features/match/data/repositories/match_repository_imp
 import 'package:dating/src/features/person/data/repositories/person_repository_impl.dart';
 import 'package:dating/src/presentation/features/chat/model/chat_model.dart';
 import 'package:dating/src/presentation/features/chat/widgets/chat_list_view.dart';
+import 'package:dating/src/presentation/features/message/model/messages_model.dart';
 import 'package:dating/src/presentation/features/message/widgets/message_story_image_view.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class ChatView extends StatefulWidget {
-  final int matchId;
-  const ChatView({required this.matchId});
+  final MessageModel match;
+  const ChatView({required this.match});
 
   @override
   _ChatViewState createState() => _ChatViewState();
@@ -34,7 +35,7 @@ class _ChatViewState extends State<ChatView> {
     PersonRepositoryImpl repo = new PersonRepositoryImpl();
     var person = await repo.getPerson();
     ChatRepositoryImpl repoChat = new ChatRepositoryImpl();
-    ChatParameter params = new ChatParameter(matchId: widget.matchId, personId: person.id??0);
+    ChatParameter params = new ChatParameter(matchId: widget.match.id, personId: person.id??0);
     repoChat.getMessages(params).then((persons) {
       setState(() {
         _list = persons;
@@ -75,7 +76,7 @@ class _ChatViewState extends State<ChatView> {
             height: 50,
             heroId: 'randomString',
             showStoryBorder: false,
-            userProfileUrl: R.IMAGES_MODEL1_JPG,
+            userProfileUrl: widget.match.userProfile,
           ),
           SizedBox(
             width: 10,
@@ -87,7 +88,7 @@ class _ChatViewState extends State<ChatView> {
               clipBehavior: Clip.hardEdge,
               children: [
                 Text(
-                  "Emelie",
+                  widget.match.name,
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.center,
                   style: textStyleColored(FontWeight.bold, 22, Colors.black),
@@ -169,11 +170,11 @@ class _ChatViewState extends State<ChatView> {
                   PersonRepositoryImpl repoPerson = new PersonRepositoryImpl();
                   var person = await repoPerson.getPerson();
                   MatchRepositoryImpl repo = new MatchRepositoryImpl();
-                  NewMessageParameter param = new NewMessageParameter(matchId: widget.matchId, senderId: person.id??0,
+                  NewMessageParameter param = new NewMessageParameter(matchId: widget.match.id, senderId: person.id??0,
                       message: myController.text);
                   await repo.sendMessage(param);
                   AppNavigator.navigateToScreenWithoutNavBar(
-                      context, ChatView(matchId: widget.matchId), PageTransitionAnimation.cupertino);
+                      context, ChatView(match: widget.match), PageTransitionAnimation.cupertino);
                 }
               },
               child: Container(

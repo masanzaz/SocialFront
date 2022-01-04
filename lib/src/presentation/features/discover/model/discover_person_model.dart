@@ -1,5 +1,6 @@
 
 import 'package:dating/src/core/params/discover_parameter.dart';
+import 'package:dating/src/core/utils/resources/constants.dart';
 import 'package:dating/src/core/utils/resources/resource.dart';
 import 'package:dating/src/features/person/data/repositories/person_repository_impl.dart';
 import 'package:dating/src/features/person/domain/repositories/person_repository.dart';
@@ -31,7 +32,7 @@ class DiscoverPersonalModel {
       id: json["id"],
       age: json["age"]??0,
       name: json["firstName"] +' '+ json["lasName"],
-      image: json["image"],
+      image: ServerUrl + (json['image'] ?? ""),
       about: json["about"]??'',
       location: json["city"]??'',
       distance: 0,

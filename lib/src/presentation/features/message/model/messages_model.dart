@@ -1,3 +1,4 @@
+import 'package:dating/src/core/utils/resources/constants.dart';
 import 'package:dating/src/core/utils/resources/resource.dart';
 import 'package:dating/src/presentation/features/matches/model/matches_model.dart';
 import 'package:dating/src/presentation/features/message/model/activities_model.dart';
@@ -25,8 +26,7 @@ class MessageModel {
   factory MessageModel.fromJson(Map<String, dynamic> json) => MessageModel(
       id: json["id"],
       name: json["firstName"],
-      //userProfile: json["image"],
-      userProfile: R.IMAGES_MODEL1_JPG,
+      userProfile: ServerUrl + (json['image'] ?? ""),
       hasStory: false,
       recentMessage: json["content"],
       time: json["time"],

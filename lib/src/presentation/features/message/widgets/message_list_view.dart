@@ -117,6 +117,6 @@ class _MessageListViewState extends State<MessageListView> {
 
   _messageSheet(MessageModel model) {
     AppNavigator.navigateToScreenWithoutNavBar(
-        context, ChatView(matchId: model.id), PageTransitionAnimation.cupertino);
+        context, ChatView(match: model), PageTransitionAnimation.cupertino);
   }
 }

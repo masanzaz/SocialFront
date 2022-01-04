@@ -1,91 +1,94 @@
 class AppText {
   //Intro
-  static const IntroTitle1 = "Intelligent AI";
+  static const IntroTitle1 = "Inteligencia IA";
   static const IntroTitle2 = "Matches";
   static const IntroTitle3 = "Premium";
   static const IntroSubTitle1 =
-      "Platform uses AI to ensure you receive best matches!";
+      "La plataforma utiliza IA para garantizar que reciba las mejores coincidencias!";
   static const IntroSubTitle2 =
-      "We itsMatch you with the people whom you shared a common hobbie";
-  static const IntroSubTitle3 = "Sign up today and enjoy the premium benefits";
-  static const signUpButtonText = "Create an account";
-  static const signInText = "Already have an account?";
-  static const signIn = "Sign In";
+      "Te emparejamos con las personas con las que compartiste un pasatiempo común.";
+  static const IntroSubTitle3 = "Regístrese hoy y disfrute de los beneficios premium";
+  static const signUpButtonText = "Crear cuenta";
+  static const signInText = "¿Ya tienes una cuenta?";
+  static const signIn = "Iniciar sesion";
 
   // SignIn
-  static const continueWithEmail = "Continue with email";
-  static const usePhone = "Use phone number";
-  static const orContinueWith = "or continue with";
-  static const termOfUse = "Terms of use";
-  static const privacyPolicy = "Privacy Policy";
+  static const continueWithEmail = "Continuar con Email";
+  static const usePhone = "Use numero telefonico";
+  static const orContinueWith = "o continuar con";
+  static const termOfUse = "Términos de Uso";
+  static const privacyPolicy = "Politica de privacidad";
 
   //Enter Mobile
-  static const myMobile = "My mobile";
+  static const myMobile = "Mi telefeno";
   static const myMobileInfo =
-      "Please enter your valid phone number. We will send you a 4-digit code to verify your account.";
-  static const continueText = "Continue";
-  static const mobileHint = "Enter Mobile Number";
+      "Ingrese su número de teléfono válido. Le enviaremos un código de 4 dígitos para verificar su cuenta.";
+  static const continueText = "Continuar";
+  static const mobileHint = "Introduzca el número de móvil ";
 
   //OTP
-  static const otpInfoText = "Type the verification code we've sent you";
-  static const sendAgain = "Send again";
+  static const otpInfoText = "Escriba el código de verificación que le enviamos";
+  static const sendAgain = "Enviar de nuevo";
 
   //Profile
-  static const profileDetails = "Profile details";
-  static const confirmText = "Confirm";
-  static const firstName = "First Name";
-  static const lastName = "Last Name";
-  static const aboutMe = "About me";
+  static const profileDetails = "Detalles del perfil";
+  static const confirmText = "Confirmar";
+  static const firstName = "Nombres";
+  static const lastName = "Apellidos";
+  static const aboutMe = "Acerca de mi";
   static const birthDateHint = "DD/MM/YYYY";
-  static const invalidBirthdateError = "Invalid birthdate format";
+  static const invalidBirthdateError = "Formato de fecha de nacimiento no válido";
+  static const errorMessage = "Ocurrió un error al actualizar el perfil";
+  static const okMessage = "Perfil actualizado correcatemente!";
+
 
   //Gender
   static const genderTitle = "I am a";
-  static const man = "Man";
-  static const woman = "Woman";
-  static const other = "Other";
+  static const man = "Homnre";
+  static const woman = "Mujer";
+  static const other = "Otros";
 
   //Intsrested
-  static const interestedTitle = "I am interested in ";
+  static const interestedTitle = "Estoy interesado en ";
 
   // Disability
-  static const yourDisability = "Your Disability";
+  static const yourDisability = "Tu discapacidad";
   static const DisabilityInfo =
-      "Select your disabilities and let everyone know what you are passionate about!!";
+      "Que discapacidad posee!!";
 
 // Interest
-  static const yourInterest = "Your Interests";
+  static const yourInterest = "Tus intereses";
   static const interestInfo =
-      "Select your interests and let everyone know what you are passionate about!";
+      "Selecciona tus intereses y deja que todos sepan lo que te apasiona.!";
 
   // Search Friends
-  static const searchFriends = "Search Friends";
+  static const searchFriends = "Buscar amigos";
   static const searchFriendsInfo =
-      "You can find your friends from your contact lists to connect with them";
-  static const accessToContact = "Access to a contact list";
+      "Puede encontrar a sus amigos en sus listas de contactos para conectarse con ellos";
+  static const accessToContact = "Acceso a la lista de contactos";
 
   // Enable Notification
-  static const enableNotification = "Enable notification";
+  static const enableNotification = "Habilitar la notificación";
   static const enableNotificationInfo =
-      "Get push notification when you get the itsMatch or receive message";
-  static const iWantToNotified = "I want to be notified";
+      "Reciba notificaciones automáticas cuando reciba el mensaje itsMatch o reciba";
+  static const iWantToNotified = "Quiero ser notificado";
 
   //Discover
-  static const discover = "Discover";
+  static const discover = "Descubrir";
 
   // itsMatch
-  static const itsMatch = "It's a match";
-  static const itsMatchSubTitle = "Start a conversation now with each other";
-  static const sayHello = "Say hello";
-  static const keepSwiping = "Keep swiping";
+  static const itsMatch = "Es un match";
+  static const itsMatchSubTitle = "Inicie una conversación ahora con los demás";
+  static const sayHello = "Di Hola";
+  static const keepSwiping = "Sigue Deslizando";
 
   // Discover Filter
-  static const filters = "Filters";
-  static const clear = "Clear";
-  static const interestedIn = "Interested in";
-  static const location = "Location";
-  static const distance = "Distance";
-  static const age = "Age";
+  static const filters = "Filtros";
+  static const clear = "Restaurar";
+  static const interestedIn = "Interes en";
+  static const location = "Localizacion";
+  static const distance = "Distancia";
+  static const age = "Edad";
 
   //Matches
   static const matches = "Matches";
@@ -93,14 +96,14 @@ class AppText {
       "This is a list of people who have liked you\nand your matches.";
 
   // Person Details
-  static const about = "About";
-  static const gallery = "Gallery";
+  static const about = "Acerca de";
+  static const gallery = "Galeria";
 
   // Message
-  static const messages = "Messages";
-  static const search = "Search";
-  static const activities = "Activities";
-  static const yourMessage = "Your message";
+  static const messages = "Mensajes";
+  static const search = "Buscar";
+  static const activities = "Actividades";
+  static const yourMessage = "Tus Mensajes";
 
   //Other
   static const skip = "Skip";

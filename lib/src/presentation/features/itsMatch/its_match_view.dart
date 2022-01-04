@@ -5,6 +5,7 @@ import 'package:dating/src/core/utils/resources/resource.dart';
 import 'package:dating/src/core/utils/resources/app_text.dart';
 import 'package:dating/src/core/widgets/app_widgets.dart';
 import 'package:dating/src/presentation/features/chat/chat_view.dart';
+import 'package:dating/src/presentation/features/message/model/messages_model.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
@@ -135,10 +136,10 @@ class ItsMatchView extends StatelessWidget {
       width: double.infinity,
       child: ElevatedButton(
           onPressed: () {
-            int matchId =
-            ModalRoute.of(context)?.settings.arguments as int;
+            MessageModel matchId =
+            ModalRoute.of(context)?.settings.arguments as MessageModel;
             AppNavigator.navigateToScreenWithoutNavBar(
-                context, ChatView(matchId: matchId), PageTransitionAnimation.cupertino);
+                context, ChatView(match: matchId), PageTransitionAnimation.cupertino);
           },
           child: Text(
             AppText.sayHello,

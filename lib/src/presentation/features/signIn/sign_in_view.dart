@@ -1,3 +1,4 @@
+import 'package:dating/src/core/utils/custom_toast.dart';
 import 'package:dating/src/core/utils/resources/resource.dart';
 import 'package:dating/src/core/utils/resources/app_routes.dart';
 import 'package:dating/src/core/utils/resources/app_text.dart';
@@ -7,10 +8,14 @@ import 'package:dating/src/presentation/features/signIn/widgets/sign_in_widgets.
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class SignInView extends StatelessWidget {
+  FToast fToast = FToast();
+
   @override
   Widget build(BuildContext context) {
+    fToast.init(context);
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -49,7 +54,12 @@ class SignInView extends StatelessWidget {
   _buildEmailButton() => Container(
       width: double.infinity,
       child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            fToast.showToast(
+              child: CustomToast.errorMessage("Error..."),
+              toastDuration: Duration(seconds: 3),
+            );
+          },
           child: Text(
             AppText.continueWithEmail,
             style: textStyleColored(FontWeight.bold, 16, null),

@@ -1,3 +1,5 @@
+import 'package:dating/src/core/utils/resources/constants.dart';
+
 class PersonModel {
   int? id;
   String? email;
@@ -36,7 +38,7 @@ class PersonModel {
         interestedId: parsedJson['interestedId'] ?? 0,
         firstName: parsedJson['firstName'] ?? "",
         lasName: parsedJson['lasName'] ?? "",
-        image: parsedJson['image'] ?? "",
+        image: ServerUrl + (parsedJson['image'] ?? ""),
         about: parsedJson['about'] ?? "",
         dateOfBirth: parsedJson['dateOfBirth'],
         hobbies: parsedJson['hobbies']?.cast<int>(),

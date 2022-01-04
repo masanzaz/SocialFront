@@ -1,3 +1,4 @@
+import 'package:dating/src/core/utils/resources/constants.dart';
 import 'package:dating/src/core/utils/resources/resource.dart';
 import 'package:dating/src/presentation/features/discover/model/discover_person_model.dart';
 
@@ -26,8 +27,7 @@ class MatchesModel {
       id: json["matchId"],
       age: json["age"]??0,
       name: json["firstName"] +' '+ json["lasName"],
-      //image: json["image"],
-      image: R.IMAGES_MODEL1_JPG,
+      image: ServerUrl + (json['image'] ?? ""),
       about: json["about"]??'',
       location: json["city"]??'',
       distance: 0,

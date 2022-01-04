@@ -1,3 +1,5 @@
+import 'package:dating/src/core/utils/custom_toast.dart';
+import 'package:dating/src/core/utils/resources/constants.dart';
 import 'package:dating/src/core/utils/resources/resource.dart';
 import 'package:dating/src/core/utils/resources/app_color.dart';
 import 'package:dating/src/core/utils/resources/app_text.dart';
@@ -5,6 +7,7 @@ import 'package:dating/src/core/widgets/app_widgets.dart';
 import 'package:dating/src/features/person/data/repositories/person_repository_impl.dart';
 import 'package:dating/src/features/person/domain/models/update_person_model.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'dart:convert';
@@ -17,15 +20,20 @@ class ProfileView extends StatefulWidget {
 }
 
 class _ProfileViewState extends State<ProfileView> {
+  FToast fToast = FToast();
   TextEditingController _nameCon = TextEditingController();
   TextEditingController _lastNameCon = TextEditingController();
   TextEditingController _aboutCon = TextEditingController();
   TextEditingController _birthDateCon = TextEditingController();
   GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
+  File? _image;
+  File imageDefault = File(R.IMAGES_MAN_JPG);
+  String? _imageUrl;
 
   @override
   void initState() {
     super.initState();
+    fToast.init(context);
     _loadPerson();
   }
 
@@ -38,16 +46,13 @@ class _ProfileViewState extends State<ProfileView> {
         _lastNameCon.text = persons.lasName??'';
         _aboutCon.text = persons.about??'';
         _birthDateCon.text = persons.dateOfBirth?.toString()??'';
-        _image = File(person.image??'');
+        _imageUrl = persons.image??R.IMAGES_MODEL2_JPG;
         _nameCon.text = persons.firstName??'';
       });
     });
-
-
   }
 
-  File? _image;
-  File imageDefault = File('http://40.113.3.39/images/woman_no_image.png');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,7 +104,7 @@ class _ProfileViewState extends State<ProfileView> {
                   height: 100,
                   fit: BoxFit.fitHeight,
                 ):
-                networkImage(R.IMAGES_MODEL2_JPG),
+                networkImage(_imageUrl??R.IMAGES_MODEL2_JPG),
               ),
             ),
             Positioned(
@@ -220,7 +225,7 @@ class _ProfileViewState extends State<ProfileView> {
   _imgFromGallery() async {
     File image = (await  ImagePicker.pickImage(
         source: ImageSource.gallery, imageQuality: 50
-    )) as File;
+    ));
 
     setState(() {
       _image = image;
@@ -263,18 +268,27 @@ class _ProfileViewState extends State<ProfileView> {
         margin: EdgeInsets.only(top: 30),
         child: ElevatedButton(
             onPressed: () async {
-              imageDefault = _image??imageDefault;
               PersonRepositoryImpl repoPerson = new PersonRepositoryImpl();
               var person = await repoPerson.getPerson();
-              var imageBytes = imageDefault.readAsBytesSync();
               UpdatePersonModel params = new UpdatePersonModel();
+              if(_image != null)
+                {
+                  imageDefault = _image??imageDefault;
+                  var imageBytes = imageDefault.readAsBytesSync();
+                  params.image = base64Encode(imageBytes);
+                }
+
               params.id = person.id;
               params.firstName = _nameCon.text;
               params.lasName = _lastNameCon.text;
               params.dateOfBirth = _birthDateCon.text;
               params.about = _aboutCon.text;
-              params.image = base64Encode(imageBytes);
               var result = await repoPerson.updatePerson(params);
+              var message = (result > 0)? AppText.okMessage:AppText.errorMessage;
+              fToast.showToast(
+                child: CustomToast.successMessage(message),
+                toastDuration: Duration(seconds: 3),
+              );
             },
             child: Text(
               AppText.confirmText,
