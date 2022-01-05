@@ -1,15 +1,39 @@
+import 'dart:io';
+
 import 'package:dating/src/core/utils/resources/app_routes.dart';
 import 'package:dating/src/core/utils/resources/app_text.dart';
 import 'package:dating/src/core/utils/navigator.dart';
 import 'package:dating/src/core/widgets/app_widgets.dart';
+import 'package:dating/src/features/person/data/repositories/person_repository_impl.dart';
 import 'package:dating/src/presentation/features/intro/widgets/intro_pager_widget.dart';
 import 'package:flutter/material.dart';
 
-class IntroView extends StatelessWidget {
-  const IntroView({Key? key}) : super(key: key);
+class IntroView extends StatefulWidget {
+  @override
+  _IntroView createState() => _IntroView();
+}
+
+class _IntroView extends State<IntroView> {
+  @override
+  void initState() {
+    super.initState();
+    _loadPersons();
+  }
+
+  _loadPersons() async {
+    PersonRepositoryImpl repo = new PersonRepositoryImpl();
+    var localPerson = await repo.getPerson();
+    try{
+      var person = await repo.getPersonById(localPerson.id??0);
+      AppNavigator.navigateToScreen(context, AppRoutes.dashboard, 0);
+    } catch(_){
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+
+   // AppNavigator.navigateToScreen(context, AppRoutes.dashboard, 0);
     return Scaffold(
       body: SafeArea(
         child: Container(

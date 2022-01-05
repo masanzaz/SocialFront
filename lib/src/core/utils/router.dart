@@ -3,6 +3,7 @@ import 'package:dating/src/core/widgets/ImagePreviewScreen.dart';
 import 'package:dating/src/features/disability/presentation/disability_view.dart';
 import 'package:dating/src/features/gender/presentation/gender_view.dart';
 import 'package:dating/src/features/interested/presentation/interested_view.dart';
+import 'package:dating/src/features/person/data/repositories/person_repository_impl.dart';
 import 'package:dating/src/presentation/features/dashboard/dashbord_view.dart';
 import 'package:dating/src/presentation/features/discover/discover_view.dart';
 import 'package:dating/src/presentation/features/enableNotification/enable_notification_view.dart';
@@ -20,7 +21,7 @@ import 'package:dating/src/presentation/features/signIn/sign_in_view.dart';
 import 'package:flutter/cupertino.dart';
 
 class RouterApp {
-  static Route<dynamic> generateRoute(RouteSettings settings) {
+  static Route generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case '/':
         return cupertinoPageRoute(IntroView(), settings);
