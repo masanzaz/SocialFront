@@ -1,7 +1,5 @@
 import 'package:dating/src/core/params/chat_parameter.dart';
 import 'package:dating/src/core/params/new_message_parameter.dart';
-import 'package:dating/src/core/utils/navigator.dart';
-import 'package:dating/src/core/utils/resources/resource.dart';
 import 'package:dating/src/core/utils/resources/app_text.dart';
 import 'package:dating/src/core/widgets/app_widgets.dart';
 import 'package:dating/src/features/chat/data/repositories/chat_repository_impl.dart';
@@ -9,10 +7,10 @@ import 'package:dating/src/features/match/data/repositories/match_repository_imp
 import 'package:dating/src/features/person/data/repositories/person_repository_impl.dart';
 import 'package:dating/src/presentation/features/chat/model/chat_model.dart';
 import 'package:dating/src/presentation/features/chat/widgets/chat_list_view.dart';
+import 'package:dating/src/presentation/features/matches/model/matches_model.dart';
 import 'package:dating/src/presentation/features/message/model/messages_model.dart';
 import 'package:dating/src/presentation/features/message/widgets/message_story_image_view.dart';
 import 'package:flutter/material.dart';
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class ChatView extends StatefulWidget {
   final MessageModel match;
@@ -173,8 +171,16 @@ class _ChatViewState extends State<ChatView> {
                   NewMessageParameter param = new NewMessageParameter(matchId: widget.match.id, senderId: person.id??0,
                       message: myController.text);
                   await repo.sendMessage(param);
-                  AppNavigator.navigateToScreenWithoutNavBar(
-                      context, ChatView(match: widget.match), PageTransitionAnimation.cupertino);
+
+                  ChatRepositoryImpl repoChat = new ChatRepositoryImpl();
+                  ChatParameter params = new ChatParameter(matchId: widget.match.id, personId: person.id??0);
+                  repoChat.getMessages(params).then((persons) {
+                    setState(() {
+                      _list = persons;
+                    });
+                  });
+
+                  myController.text = "";
                 }
               },
               child: Container(
