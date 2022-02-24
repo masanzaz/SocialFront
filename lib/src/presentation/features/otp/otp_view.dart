@@ -1,8 +1,11 @@
+import 'package:dating/src/core/params/otp_parameter.dart';
 import 'package:dating/src/core/utils/resources/app_color.dart';
 import 'package:dating/src/core/utils/resources/app_routes.dart';
 import 'package:dating/src/core/utils/resources/app_text.dart';
 import 'package:dating/src/core/utils/navigator.dart';
 import 'package:dating/src/core/widgets/app_widgets.dart';
+import 'package:dating/src/features/otp/data/repositories/otp_repository_impl.dart';
+import 'package:dating/src/features/otp/domain/repositories/otp_repository.dart';
 import 'package:dating/src/features/person/data/repositories/person_repository_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,6 +20,7 @@ class OtpView extends StatefulWidget {
 
 class _OtpViewState extends State<OtpView> {
   final _scaffoldKey = new GlobalKey<ScaffoldState>();
+  String token = "";
 
   @override
   Widget build(BuildContext context) {
@@ -80,6 +84,10 @@ class _OtpViewState extends State<OtpView> {
           keyboardType: TextInputType.number,
           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           animationCurve: Curves.linear,
+          onCompleted: (result) {
+            token = result;
+            print(result);
+          },
           pinTheme: PinTheme(
               shape: PinCodeFieldShape.box,
               fieldHeight: 60,
@@ -107,17 +115,21 @@ class _OtpViewState extends State<OtpView> {
         margin: EdgeInsets.only(top: 30),
         child: ElevatedButton(
             onPressed: () async {
-
               PersonRepositoryImpl repo = new PersonRepositoryImpl();
               var localPerson = await repo.getPerson();
-              try{
-                  var person = await repo.getPersonByPhone(localPerson.phoneNumber??'');
-                  repo.savePerson(person);
-                  AppNavigator.navigateToScreen(context, AppRoutes.enableNotification);
-                } catch(_){
-                AppNavigator.navigateToScreen(context, AppRoutes.gender);
+              OtpRepository otpRepository = new OtpRepositoryImpl();
+              OtpParameter otpParameter = new OtpParameter(phoneNumber: localPerson.phoneNumber??'', token: token);
+              var response = await otpRepository.ValidateTokenByPhone(otpParameter);
+              if(response)
+                {
+                  try{
+                    var person = await repo.getPersonByPhone(localPerson.phoneNumber??'');
+                    repo.savePerson(person);
+                    AppNavigator.navigateToScreen(context, AppRoutes.enableNotification);
+                  } catch(_){
+                    AppNavigator.navigateToScreen(context, AppRoutes.gender);
+                  }
                 }
-
             },
             child: Text(
               AppText.confirmText,

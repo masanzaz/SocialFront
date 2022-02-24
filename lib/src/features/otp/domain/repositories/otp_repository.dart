@@ -1,5 +1,6 @@
-import 'package:dating/src/features/gender/domain/models/gender_model.dart';
+import 'package:dating/src/core/params/otp_parameter.dart';
 
-abstract class GenderRepository {
-  Future<List<GenderModel>> getAllGenders();
+abstract class OtpRepository {
+  Future<bool> ConfirmPhoneNumber(OtpParameter otpParameter);
+  Future<bool> ValidateTokenByPhone(OtpParameter otpParameter);
 }

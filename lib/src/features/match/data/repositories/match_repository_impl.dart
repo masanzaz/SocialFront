@@ -36,6 +36,4 @@ class MatchRepositoryImpl implements MatchRepository {
     print("${response.body}");
     return convert.jsonDecode(response.body)["data"];
   }
-
-
 }

@@ -1,8 +1,11 @@
+import 'package:dating/src/core/params/otp_parameter.dart';
 import 'package:dating/src/core/utils/resources/app_color.dart';
 import 'package:dating/src/core/utils/resources/app_routes.dart';
 import 'package:dating/src/core/utils/resources/app_text.dart';
 import 'package:dating/src/core/utils/navigator.dart';
 import 'package:dating/src/core/widgets/app_widgets.dart';
+import 'package:dating/src/features/otp/data/repositories/otp_repository_impl.dart';
+import 'package:dating/src/features/otp/domain/repositories/otp_repository.dart';
 import 'package:dating/src/features/person/data/repositories/person_repository_impl.dart';
 import 'package:dating/src/features/person/domain/models/person_model.dart';
 import 'package:dating/src/features/person/domain/repositories/person_repository.dart';
@@ -97,6 +100,10 @@ class _EnterMobileViewState extends State<EnterMobileView> {
               PersonRepository repo = new PersonRepositoryImpl();
               repo.savePerson(personModel);
               AppNavigator.navigateToScreen(context, AppRoutes.otp);
+
+              OtpRepository otpRepository = new OtpRepositoryImpl();
+              OtpParameter otpParameter = new OtpParameter(phoneNumber: controller.text, token: "test");
+              otpRepository.ConfirmPhoneNumber(otpParameter);
             },
             child: Text(
               AppText.continueText,
