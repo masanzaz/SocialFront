@@ -36,15 +36,15 @@ class AppText {
   static const firstName = "Nombres";
   static const lastName = "Apellidos";
   static const aboutMe = "Acerca de mi";
-  static const birthDateHint = "DD/MM/YYYY";
+  static const birthDateHint = "mm/dd/yyyy";
   static const invalidBirthdateError = "Formato de fecha de nacimiento no válido";
   static const errorMessage = "Ocurrió un error al actualizar el perfil";
   static const okMessage = "Perfil actualizado correcatemente!";
 
 
   //Gender
-  static const genderTitle = "I am a";
-  static const man = "Homnre";
+  static const genderTitle = "Yo soy";
+  static const man = "Hombre";
   static const woman = "Mujer";
   static const other = "Otros";
 

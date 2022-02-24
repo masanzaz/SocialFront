@@ -1,19 +1,34 @@
 import 'dart:math' as math;
+import 'package:dating/src/core/params/chat_parameter.dart';
 import 'package:dating/src/core/utils/navigator.dart';
 import 'package:dating/src/core/utils/resources/app_routes.dart';
-import 'package:dating/src/core/utils/resources/resource.dart';
 import 'package:dating/src/core/utils/resources/app_text.dart';
 import 'package:dating/src/core/widgets/app_widgets.dart';
+import 'package:dating/src/features/match/data/repositories/match_repository_impl.dart';
+import 'package:dating/src/features/match/domain/repositories/match_repository.dart';
+import 'package:dating/src/features/person/data/repositories/person_repository_impl.dart';
 import 'package:dating/src/presentation/features/chat/chat_view.dart';
+import 'package:dating/src/presentation/features/matches/model/matches_model.dart';
 import 'package:dating/src/presentation/features/message/model/messages_model.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
-class ItsMatchView extends StatelessWidget {
-  const ItsMatchView({Key? key}) : super(key: key);
+class ItsMatchView extends StatefulWidget {
+  @override
+  _ItsMatchView createState() => _ItsMatchView();
+}
+
+class _ItsMatchView extends State<ItsMatchView> {
+  late MatchesModel matchModel;
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    matchModel = ModalRoute.of(context)?.settings.arguments as MatchesModel;
     return Scaffold(
       appBar: AppBar(),
       body: SafeArea(
@@ -21,8 +36,8 @@ class ItsMatchView extends StatelessWidget {
           margin: EdgeInsets.only(bottom: 25, left: 25, right: 25),
           child: Column(
             children: [
-              _buildImageWrapper(context),
-              _title(context),
+              _buildImageWrapper(context, matchModel),
+              _title(context, matchModel),
               _subTitle(context),
               Spacer(),
               _buildSayHelloButton(context),
@@ -34,7 +49,7 @@ class ItsMatchView extends StatelessWidget {
     );
   }
 
-  Widget _buildImageWrapper(BuildContext context) => Container(
+  Widget _buildImageWrapper(BuildContext context, MatchesModel match) => Container(
         margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.02),
         alignment: Alignment.center,
         height: MediaQuery.of(context).size.height * 0.4,
@@ -45,18 +60,18 @@ class ItsMatchView extends StatelessWidget {
             Positioned(
               right: 50,
               top: 10,
-              child: _buildUpperImageStack(context),
+              child: _buildUpperImageStack(context, match),
             ),
             Positioned(
               left: 50,
               bottom: 0,
-              child: _buildBottomImageStack(context),
+              child: _buildBottomImageStack(context, match),
             ),
           ],
         ),
       );
 
-  Widget _buildUpperImageStack(BuildContext context) => Transform.rotate(
+  Widget _buildUpperImageStack(BuildContext context, MatchesModel match) => Transform.rotate(
         angle: math.pi / 20,
         child: Stack(
           clipBehavior: Clip.none,
@@ -66,7 +81,7 @@ class ItsMatchView extends StatelessWidget {
               child: SizedBox(
                 height: MediaQuery.of(context).size.width * 0.5,
                 width: MediaQuery.of(context).size.width * 0.35,
-                child: networkImage(R.IMAGES_MODEL_MALE_JPG),
+                child: networkImage(match.image),
               ),
             ),
             Positioned(
@@ -78,7 +93,7 @@ class ItsMatchView extends StatelessWidget {
         ),
       );
 
-  Widget _buildBottomImageStack(BuildContext context) => Transform.rotate(
+  Widget _buildBottomImageStack(BuildContext context, MatchesModel match) => Transform.rotate(
         angle: -math.pi / 20,
         child: Stack(
           clipBehavior: Clip.none,
@@ -88,7 +103,7 @@ class ItsMatchView extends StatelessWidget {
               child: SizedBox(
                 height: MediaQuery.of(context).size.width * 0.5,
                 width: MediaQuery.of(context).size.width * 0.35,
-                child: networkImage(R.IMAGES_MODEL1_JPG),
+                child: networkImage(match.matchImage),
               ),
             ),
             Positioned(
@@ -104,7 +119,7 @@ class ItsMatchView extends StatelessWidget {
         width: MediaQuery.of(context).size.width * 0.12,
         height: MediaQuery.of(context).size.width * 0.12,
         child: FloatingActionButton(
-          heroTag: key,
+          heroTag: 1,
           elevation: 2,
           child: Icon(
             FontAwesome5.heart,
@@ -116,10 +131,10 @@ class ItsMatchView extends StatelessWidget {
         ),
       );
 
-  Widget _title(BuildContext context) => Container(
+  Widget _title(BuildContext context, MatchesModel match) => Container(
         margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.07),
         child: Text(
-          "${AppText.itsMatch}, Jake!",
+          "${AppText.itsMatch}, " + match.name,
           style: textStylePrimary(context, FontWeight.bold, 30),
         ),
       );
@@ -136,10 +151,18 @@ class ItsMatchView extends StatelessWidget {
       width: double.infinity,
       child: ElevatedButton(
           onPressed: () {
-            MessageModel matchId =
-            ModalRoute.of(context)?.settings.arguments as MessageModel;
+            MessageModel messageModel = new MessageModel(
+                id: matchModel.id,
+                userProfile : matchModel.image ,
+                hasStory: false,
+                name: matchModel.name,
+                recentMessage : "",
+                time: "",
+                unreadCount : 0
+            );
+
             AppNavigator.navigateToScreenWithoutNavBar(
-                context, ChatView(match: matchId), PageTransitionAnimation.cupertino);
+                context, ChatView(match: messageModel), PageTransitionAnimation.cupertino);
           },
           child: Text(
             AppText.sayHello,

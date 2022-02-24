@@ -14,9 +14,12 @@ class DashBoardView extends StatefulWidget {
   _DashBoardViewState createState() => _DashBoardViewState();
 }
 
-class _DashBoardViewState extends State<DashBoardView> {
+class _DashBoardViewState extends State<DashBoardView> with
+    AutomaticKeepAliveClientMixin<DashBoardView>{
+  @override
+  bool get wantKeepAlive => false;
   late PersistentTabController _controller;
-   int? newIndex = -1;
+  int? newIndex = -1;
   @override
   void initState() {
     _controller = PersistentTabController(initialIndex: 0);
@@ -27,13 +30,14 @@ class _DashBoardViewState extends State<DashBoardView> {
   }
 
   @override
+  @override
   Widget build(BuildContext context) {
     int? _index =
     ModalRoute.of(context)?.settings.arguments as int?;
     if(newIndex != -1)
-      {
-        _index = newIndex;
-      }
+    {
+      _index = newIndex;
+    }
     _controller.index = _index??0;
     return Scaffold(
       body: SafeArea(
@@ -50,14 +54,13 @@ class _DashBoardViewState extends State<DashBoardView> {
           hideNavigationBarWhenKeyboardShows: true,
           popAllScreensOnTapOfSelectedTab: true,
           popActionScreens: PopActionScreensType.all,
-
           itemAnimationProperties: ItemAnimationProperties(
             duration: Duration(milliseconds: 200),
             curve: Curves.ease,
           ),
           onItemSelected: (int) {
             newIndex = int;
-           switch (int) {
+            switch (int) {
              case 1:
                AppNavigator.navigateToScreen(
                    context, AppRoutes.dashboard, int);

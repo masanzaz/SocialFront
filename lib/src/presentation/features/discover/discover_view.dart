@@ -1,10 +1,13 @@
 import 'dart:async';
+import 'package:dating/src/core/params/chat_parameter.dart';
 import 'package:dating/src/core/params/discover_parameter.dart';
 import 'package:dating/src/core/params/new_match_parameter.dart';
 import 'package:dating/src/core/utils/resources/app_routes.dart';
 import 'package:dating/src/core/utils/resources/app_text.dart';
 import 'package:dating/src/core/utils/navigator.dart';
 import 'package:dating/src/core/widgets/app_widgets.dart';
+import 'package:dating/src/features/match/data/repositories/match_repository_impl.dart';
+import 'package:dating/src/features/match/domain/repositories/match_repository.dart';
 import 'package:dating/src/features/person/data/repositories/person_repository_impl.dart';
 import 'package:dating/src/presentation/features/discover/discover_filter_view.dart';
 import 'package:dating/src/presentation/features/discover/helper/discover_dimension_helper.dart';
@@ -49,8 +52,6 @@ class _DiscoverViewState extends State<DiscoverView> {
 
   Sink get _cardStackHideSink => _cardStackHideController.sink;
   Stream<bool> get _cardStackHideStream => _cardStackHideController.stream;
-  //final _list = DiscoverPersonalModel.items();
-
 
   @override
   Future<void> dispose() async {
@@ -219,8 +220,13 @@ class _DiscoverViewState extends State<DiscoverView> {
           var person = await repo.getPerson();
           NewMatchParameter param = new NewMatchParameter(senderId: person.id??0, receiverId: selecction.id);
           var  isMatch = await repo.sendMatch(param);
+
           if(isMatch > 0) {
-            AppNavigator.navigateToScreen(context, AppRoutes.itsMatch, isMatch);
+            MatchRepository repoMatch = new MatchRepositoryImpl();
+            ChatParameter params = new ChatParameter(personId: person.id??0, matchId:isMatch);
+            var match = await repoMatch.getMatchBydId(params);
+
+            AppNavigator.navigateToScreen(context, AppRoutes.itsMatch, match);
           }
           else
             {
