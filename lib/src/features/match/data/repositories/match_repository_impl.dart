@@ -1,3 +1,4 @@
+import 'package:dating/src/core/params/chat_parameter.dart';
 import 'package:dating/src/core/params/discover_parameter.dart';
 import 'package:dating/src/core/params/new_message_parameter.dart';
 import 'package:dating/src/core/utils/resources/constants.dart';
@@ -35,5 +36,13 @@ class MatchRepositoryImpl implements MatchRepository {
     print("${response.statusCode}");
     print("${response.body}");
     return convert.jsonDecode(response.body)["data"];
+  }
+
+  Future<MatchesModel> getMatchBydId(ChatParameter params) async {
+    final _pathDiscover = 'Person/GetMatchById?MatchId='+params.matchId.toString()+'&PersonId='+params.personId.toString();
+    var url = Uri.parse(BaseUrl + _pathDiscover);
+    var response = await http.get(url);
+    var jsonResponse  = convert.jsonDecode(response.body)["data"];
+    return MatchesModel.fromJson(jsonResponse);
   }
 }
